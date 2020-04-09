@@ -65,6 +65,9 @@ class TimeSlider extends D3Component {
     let interval = undefined;
 
     const play = () => {
+      if (this.value == d3.max(data)) {
+        reset();
+      }
       clearInterval(interval)
       interval = setInterval(progress, 1000);
     }
@@ -74,7 +77,7 @@ class TimeSlider extends D3Component {
     }
 
     const reset = () => {
-      setValue(1);
+      setValue(0);
     }
 
     const playButton = d3

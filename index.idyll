@@ -22,7 +22,7 @@ They're often used in distributed systems or for other collaborative application
 
 # A Simple CRDT (2P-Set)
 
-[var name:"userAEvents" value:`[{t: 1, o: "added", id: "🍇"},{t: 2, o: "added", id: "🍉"},{t: 3, o: "removed", id: "🍉"}]` /]
+[var name:"userAEvents" value:`[{t: 1, o: "added", id: "🍇"},{t: 2, o: "added", id: "🍉"},{t: 3, o: "removed", id: "🍉"},{t: 4, o: "added", id: "🥑"},{t: 5, o: "added", id: "🍌"} ]` /]
 [var name:"userAEventsTimestamped" value:`[]` /]
 [var name:"userBEvents" value:`[{t: 1, o: "added", id: "🥦"},{t: 2, o: "removed", id: "🍇"},{t: 3, o: "added", id: "🍉"}]` /]
 [var name:"userBEventsTimestamped" value:`[]` /]
@@ -32,7 +32,7 @@ They're often used in distributed systems or for other collaborative application
 
 ## A Grocery List
 We're going to use a grocery list as an approximation of a set.
-Try adding or remove items from your cart.
+Try adding or remove items from your list.
 
 [Aside]
   [caption]Your Events[/caption]
@@ -47,8 +47,12 @@ We're going to use some timelines to play around
 when events occur. Press play to see the series of changes to your
 grocery list take place. Everything will resolve to the same state you see above.
 
-## A Friend
+[TimeSlider value:timeA events:userAEvents timestampedEvents:userAEventsTimestamped/]
 
+[SetRepresentation events:userAEvents time:timeA/]
+
+
+## A Friend
 
 [Aside]
   [caption]Your Friend's Events[/caption]
@@ -61,6 +65,12 @@ This is going to be a friend of your's editing the same grocery
 list at around the same time.
 
 [SetEditor events:userBEvents time:timeB /]
+
+We can scrub through each of their events taking place as well:
+
+[TimeSlider value:timeB events:userBEvents timestampedEvents:userBEventsTimestamped/]
+
+[SetRepresentation events:userBEvents time:timeB/]
 
 ## A Conflict
 
@@ -92,3 +102,6 @@ deterministic, anything can happen in any order but we get the same result.
 The red box you see is what is often called a *tombstone* set. Many CRDTs use similar models.
 Things that are removed are removed forever and tracked. This allows the merger of the data structure. 
 User A and User B can know that whatever they removed will be gone when their states are combined.
+
+Because items have been removed are never coming back, it doesn't matter when
+the remove action occurred, only that at some point it did occur.
