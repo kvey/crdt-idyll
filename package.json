@@ -1,0 +1,27 @@
+{
+  "name": "crdt",
+  "version": "1.0.0",
+  "license": "MIT",
+  "idyll": {
+    "theme": "tufte",
+    "layout": "blog",
+    "css": "styles.css",
+    "authorView": false
+  },
+  "scripts": {
+    "build-css": "npx tailwindcss build index.css -o styles.css"
+  },
+  "dependencies": {
+    "automerge": "^0.14.0",
+    "d3": "^5.15.1",
+    "d3-drag": "^1.2.5",
+    "d3-hierarchy": "^1.1.9",
+    "d3-simple-slider": "^1.5.5",
+    "idyll": "^4.0.0",
+    "idyll-d3-component": "^2.0.0",
+    "tailwindcss": "^1.2.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^0.12.0"
+  }
+}

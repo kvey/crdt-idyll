@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply text-3xl;
+  @apply mb-2;
+  @apply mt-10;
+}
+
+h2 {
+  @apply text-2xl;
+  @apply mb-2;
+  @apply mt-10;
+}
+h3 {
+  @apply text-lg;
+}
+a {
+  @apply text-blue-600 underline;
+}
+
+ul {
+  @apply list-disc;
+}
+
+p {
+  @apply mt-8;
+  @apply text-lg;
+}
+
+
+.d3-component svg {
+  background: #ddd;
+  max-height: 300px;
+}
+
+@media all and (max-width: 1000px) {
+  .d3-component svg {
+    max-height: 200px;
+  }
+}
+
+.article-header {
+  @apply py-5;
+}
+
+caption {
+  width: 100%;
+}

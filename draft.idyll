@@ -1,0 +1,19 @@
+
+# Collaborative text editing
+
+[TimeSlider value:timeA events:userAEvents timestampedEvents:userAEventsTimestamped/]
+[TimeSlider value:timeB events:userBEvents timestampedEvents:userBEventsTimestamped/]
+
+It's pretty inconveinient that our friend and us can't each get 
+what we both like.
+
+An important property of a 2P-Set is that no item that has been removed can be
+recovered. This is a common pattern in CRDTs. It's a simple way that we ensure
+that we can't go backwards in our states.
+
+Normally this isn't true for grocery lists.
+You can always add something back onto a list.
+
+
+
+## Memory concerns

@@ -1,0 +1,94 @@
+[meta title:"Crdt" description:"Short description of your project" /]
+
+[Header
+  fullWidth:true
+  title:"CRDTs"
+  subtitle:"Conflict-free Replicated Data Types and collaboration"
+  author:"Colton Pierson"
+  authorLink:"https://coltonpierson.com"
+  date:`(new Date()).toDateString()`
+  background:"#222222"
+  color:"#ffffff"
+   /]
+
+
+# So what is a CRDT
+
+CRDTs (Conflict-free Replicated Data Type)s enable eventual consistency.
+As multiple instances of them are either merged or their operations are
+evaluated, they will always resolve to a consistent final state.
+They're often used in distributed systems or for other collaborative applications.
+
+
+# A Simple CRDT (2P-Set)
+
+[var name:"userAEvents" value:`[{t: 1, o: "added", id: "🍇"},{t: 2, o: "added", id: "🍉"},{t: 3, o: "removed", id: "🍉"}]` /]
+[var name:"userAEventsTimestamped" value:`[]` /]
+[var name:"userBEvents" value:`[{t: 1, o: "added", id: "🥦"},{t: 2, o: "removed", id: "🍇"},{t: 3, o: "added", id: "🍉"}]` /]
+[var name:"userBEventsTimestamped" value:`[]` /]
+[var name:"timeA" value:`5` /]
+[var name:"timeB" value:`5` /]
+
+
+## A Grocery List
+We're going to use a grocery list as an approximation of a set.
+Try adding or remove items from your cart.
+
+[Aside]
+  [caption]Your Events[/caption]
+  [Flex]
+    [SetEventEditor events:userAEvents time:timeA/]
+  [/Flex]
+[/Aside]
+
+[SetEditor events:userAEvents time:timeA /]
+
+We're going to use some timelines to play around
+when events occur. Press play to see the series of changes to your
+grocery list take place. Everything will resolve to the same state you see above.
+
+## A Friend
+
+
+[Aside]
+  [caption]Your Friend's Events[/caption]
+  [Flex]
+    [SetEventEditor events:userBEvents time:timeB/]
+  [/Flex]
+[/Aside]
+
+This is going to be a friend of your's editing the same grocery
+list at around the same time.
+
+[SetEditor events:userBEvents time:timeB /]
+
+## A Conflict
+
+[Aside]
+  [caption]Comparing Our Events[/caption]
+  [Flex]
+    [SetEventEditor events:userAEvents time:timeA showShuffle:1/]
+    [SetEventEditor events:userBEvents time:timeB showShuffle:1/]
+  [/Flex]
+[/Aside]
+
+Lets take a look at what happens when don't use something like a CRDT.
+If events take place in different orders, we'll get different results. Try
+hitting the *shuffle* button to mix up the order our events take place in.
+
+[CombinedSetRepresentationDumb timeA:timeA timeB:timeB eventsA:userAEvents eventsB:userBEvents /]
+
+We get different results for different orders of operations.
+
+## Conflict-free
+
+In contrast, using the CRDT structure fixes this.
+No matter what order all of the events occur, the final state of our list will
+be the same. This is the goal of eventual consistency. Everything is
+deterministic, anything can happen in any order but we get the same result.
+
+[CombinedSetRepresentation timeA:timeA timeB:timeB eventsA:userAEvents eventsB:userBEvents /]
+
+The red box you see is what is often called a *tombstone* set. Many CRDTs use similar models.
+Things that are removed are removed forever and tracked. This allows the merger of the data structure. 
+User A and User B can know that whatever they removed will be gone when their states are combined.
