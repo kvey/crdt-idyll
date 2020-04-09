@@ -8,7 +8,10 @@ const d3 = Object.assign(
 
 const CombinedSetRepresentationDumb = ({timeA, timeB, eventsA, eventsB, updateProps}) => {
 
-  let allEvents = eventsA.concat(eventsB).sort((a,b) => a["t"] - b["t"]);
+  const eventsALimit = eventsA.filter((x) => x["t"] <= timeA);
+  const eventsBLimit = eventsB.filter((x) => x["t"] <= timeB);
+
+  let allEvents = eventsALimit.concat(eventsBLimit).sort((a,b) => a["t"] - b["t"]);
 
   const results = new Set();
 
