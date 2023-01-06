@@ -17,7 +17,7 @@
     "d3-drag": "^1.2.5",
     "d3-hierarchy": "^1.1.9",
     "d3-simple-slider": "^1.5.5",
-    "idyll": "^4.0.0",
+    "idyll": "^6.0.0-alpha.6",
     "idyll-d3-component": "^2.0.0",
     "tailwindcss": "^1.2.0"
   },
